@@ -21,7 +21,7 @@ export default async function OnboardPage() {
       <form action={registerAdmin} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700">Full Name</label>
-          <input 
+          <input className="w-full p-3 border rounded-xl text-gray-900 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none"
             name="name" 
             type="text" 
             required 
@@ -32,7 +32,7 @@ export default async function OnboardPage() {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">Email Address</label>
-          <input 
+          <input className="w-full p-3 border rounded-xl text-gray-900 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none"
             name="email" 
             type="email" 
             required 
@@ -43,7 +43,7 @@ export default async function OnboardPage() {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">Temporary Password</label>
-          <input 
+          <input className="w-full p-3 border rounded-xl text-gray-900 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none"
             name="password" 
             type="password" 
             required 
