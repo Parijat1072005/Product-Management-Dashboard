@@ -21,33 +21,33 @@ export default async function OnboardPage() {
       <form action={registerAdmin} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700">Full Name</label>
-          <input className="w-full p-3 border rounded-xl text-gray-900 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+          <input 
             name="name" 
             type="text" 
             required 
-             
+            className="w-full p-3 border rounded-xl text-gray-900 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none" 
             placeholder="John Doe"
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700">Email Address</label>
-          <input className="w-full p-3 border rounded-xl text-gray-900 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+          <input 
             name="email" 
             type="email" 
             required 
-             
+            className="w-full p-3 border rounded-xl text-gray-900 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none"
             placeholder="admin@example.com"
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700">Temporary Password</label>
-          <input className="w-full p-3 border rounded-xl text-gray-900 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+          <input 
             name="password" 
             type="password" 
             required 
-            
+            className="w-full p-3 border rounded-xl text-gray-900 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none"
             placeholder="••••••••"
           />
         </div>
