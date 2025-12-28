@@ -25,7 +25,7 @@ export default async function OnboardPage() {
             name="name" 
             type="text" 
             required 
-            className="w-full p-2 border rounded-lg mt-1" 
+             
             placeholder="John Doe"
           />
         </div>
@@ -36,7 +36,7 @@ export default async function OnboardPage() {
             name="email" 
             type="email" 
             required 
-            className="w-full p-2 border rounded-lg mt-1" 
+             
             placeholder="admin@example.com"
           />
         </div>
@@ -47,7 +47,7 @@ export default async function OnboardPage() {
             name="password" 
             type="password" 
             required 
-            className="w-full p-2 border rounded-lg mt-1" 
+            
             placeholder="••••••••"
           />
         </div>
