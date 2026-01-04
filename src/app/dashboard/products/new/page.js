@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createProduct } from "@/actions/productActions";
-import { Loader2 } from "lucide-react"; // Import for the loading spinner
+import { Loader2 } from "lucide-react";
 
 export default function NewProductPage() {
   const [step, setStep] = useState(1);
@@ -17,7 +17,28 @@ export default function NewProductPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // --- NEW: Step Validation Guards ---
+  const validateStep1 = () => {
+    if (!formData.name.trim()) return alert("Please enter a Product Name.");
+    if (!formData.description.trim()) return alert("Please enter a Product Description.");
+    setStep(2);
+  };
+
+  const validateStep2 = () => {
+    if (!formData.price || formData.price <= 0) return alert("Please enter a valid Price.");
+    if (!formData.stock || formData.stock < 0) return alert("Please enter a valid Stock level.");
+    if (!formData.category) return alert("Please select a Category.");
+    setStep(3);
+  };
+
   const handleSubmit = async (e) => {
+    // Final check before submission
+    if (!formData.name || !formData.description || !formData.price) {
+      alert("Missing information! Please check all steps.");
+      setStep(1);
+      return;
+    }
+
     setLoading(true);
     const data = new FormData();
     data.append("name", formData.name);
@@ -28,11 +49,17 @@ export default function NewProductPage() {
     if (file) data.append("image", file);
 
     try {
-      await createProduct(data);
-      router.push("/dashboard/products");
+      const result = await createProduct(data);
+      if (result.success) {
+        router.push("/dashboard/products");
+      } else {
+        // If the server returns a specific error (like the one we fixed in logs)
+        alert(result.error || "Failed to create product");
+        setLoading(false);
+      }
     } catch (err) {
       console.error(err);
-      alert("Failed to create product");
+      alert("An unexpected error occurred. Please try again.");
       setLoading(false);
     }
   };
@@ -40,7 +67,7 @@ export default function NewProductPage() {
   return (
     <div className="relative max-w-3xl mx-auto bg-white p-10 rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
       
-      {/* LOADING OVERLAY: Appears during submission */}
+      {/* LOADING OVERLAY */}
       {loading && (
         <div className="absolute inset-0 z-50 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center">
           <Loader2 className="animate-spin text-blue-600 mb-4" size={50} />
@@ -79,7 +106,7 @@ export default function NewProductPage() {
           </div>
           <div className="flex gap-4">
             <button type="button" onClick={() => router.push("/dashboard/products")} className="px-6 py-3 border rounded-xl font-bold text-gray-500 hover:bg-gray-50 transition">Cancel</button>
-            <button onClick={() => setStep(2)} className="flex-1 bg-blue-600 text-white p-3 rounded-xl font-bold hover:bg-blue-700 transition">Continue to Inventory</button>
+            <button onClick={validateStep1} className="flex-1 bg-blue-600 text-white p-3 rounded-xl font-bold hover:bg-blue-700 transition">Continue to Inventory</button>
           </div>
         </div>
       )}
@@ -110,7 +137,7 @@ export default function NewProductPage() {
           <div className="flex gap-4">
             <button type="button" onClick={() => router.push("/dashboard/products")} className="px-6 py-3 border rounded-xl font-bold text-gray-500 hover:bg-gray-50 transition">Cancel</button>
             <button onClick={() => setStep(1)} className="bg-gray-200 text-gray-700 px-6 py-3 rounded-xl font-bold hover:bg-gray-300">Back</button>
-            <button onClick={() => setStep(3)} className="flex-1 bg-blue-600 text-white p-3 rounded-xl font-bold hover:bg-blue-700 px-10">Continue to Media</button>
+            <button onClick={validateStep2} className="flex-1 bg-blue-600 text-white p-3 rounded-xl font-bold hover:bg-blue-700 px-10">Continue to Media</button>
           </div>
         </div>
       )}
